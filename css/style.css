@@ -1,0 +1,180 @@
+body {
+  background-color: #FDFDFD;
+  color: #333;
+  font-family: "Hind", "Verdana", sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  padding: 20px 15px;
+  margin: 0 auto;
+
+  -moz-font-feature-settings: "kern", "liga";
+  -webkit-font-feature-settings: "kern", "liga";
+  font-feature-settings: "kern", "liga";
+}
+@media not handheld {@media (min-width: 992px) {
+  body {
+    width: 1000px;
+  }
+}}
+
+@media (min-width: 768px) {
+  section {
+    width: 730px;
+  }
+}
+@media not handheld {@media (min-width: 992px) {
+  section {
+    display: inline-block;
+    margin-left: 170px;
+  }
+}}
+
+h1, h2, h3 {
+  color: black;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+h3 span.lbl {
+  font-weight: 400;
+}
+h1 {
+  font-size: 27px;
+}
+h2 {
+  font-size: 23px;
+}
+h3 {
+  font-size: 19px;
+}
+@media (min-width: 768px) {
+  body {
+    font-size: 20px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+}
+@media (min-width: 992px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+}
+
+div.img, img {
+  margin: 40px 0 20px 0;
+}
+div.img img {
+  margin: 0;
+}
+
+p {
+  margin: 0 0 10px;
+}
+article p {
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+article p, article ul, article ol {
+  margin: 0 0 .8em;
+}
+@media (min-width: 768px) {
+  article p {
+    margin-bottom: 1em;
+  }
+  article h1, article h2, article h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-left: 25px;
+}
+
+blockquote {
+  margin: 15px 20px 1em;
+  padding: 15px 0;
+  font-style: italic;
+  line-height: 1.32;
+}
+@media (min-width: 768px) {
+  blockquote {
+    font-size: 91%;
+    margin: 15px 40px 1em;
+  }
+}
+
+a {
+  background-color: transparent;
+  color: #3F94C5;
+  text-decoration: none;
+}
+a:hover, a:focus {
+  color: #2A6496;
+  text-decoration: none;
+}
+ul.nav a {
+  border-bottom: none;
+}
+a:active, a:hover {
+  outline: 0;
+}
+
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
+code {
+  font-family: "Source Code Pro", Consolas, Menlo, Inconsolata, "DejaVu Sans Mono", monospace;
+}
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+nav ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+nav li:last-child {
+  margin-right: 0;
+}
+@media not handheld {@media (min-width: 992px) {
+  nav {
+    position: fixed;
+    margin-top: 15px;
+    padding-right: 20px;
+    border-right: 1px solid #CCC;
+    text-align: right;
+  }
+  nav li {
+    display: list-item;
+    margin-right: 0;
+  }
+}}
+
+h1 a, h1 a:focus, h2 a, h2 a:focus, h3 a, h3 a:focus, h4 a, h4 a:focus {
+  color: inherit;
+}
