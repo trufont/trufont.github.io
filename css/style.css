@@ -29,6 +29,137 @@ body {
   }
 }}
 
+.btn {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 6px 22px 3px 22px;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #424345;
+  background: rgb(223, 227, 232);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom-width: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  *margin-left: .3em;
+}
+
+.btn:hover,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+}
+
+.btn.disabled,
+.btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-large {
+  padding: 9px 25px;
+  font-size: 17px;
+  line-height: normal;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.btn-large [class^="icon-"] {
+  margin-top: 2px;
+}
+
+.btn-small {
+  padding: 3px 18px;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.btn-small [class^="icon-"] {
+  margin-top: 0;
+}
+
+a.dl {
+  display: none;
+}
+/*
+html.js.linux a.default {
+  display: none;
+}*/
+html.js.linux a.gnulinux {
+    display: inline-block;
+}
+/*
+html.js.osx a.default {
+  display: none;
+}*/
+html.js.osx a.macos {
+    display: inline-block;
+}
+/*
+html.js.windows a.default {
+  display: none;
+}*/
+html.js.windows a.windows {
+    display: inline-block;
+}
+
 h1, h2, h3 {
   color: black;
   font-weight: 700;
@@ -150,30 +281,6 @@ img {
   max-width: 100%;
 }
 
-nav ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-nav li {
-  display: inline-block;
-  margin-right: 10px;
-}
-nav li:last-child {
-  margin-right: 0;
-}
-@media not handheld {@media (min-width: 992px) {
-  nav {
-    position: fixed;
-    margin-top: 15px;
-    padding-right: 20px;
-    border-right: 1px solid #CCC;
-    text-align: right;
-  }
-  nav li {
-    display: list-item;
-    margin-right: 0;
-  }
-}}
 
 h1 a, h1 a:focus, h2 a, h2 a:focus, h3 a, h3 a:focus, h4 a, h4 a:focus {
   color: inherit;
