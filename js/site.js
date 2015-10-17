@@ -12,7 +12,7 @@
             ua = ua || navigator.userAgent;
 
             if (/Win(16|9[x58]|NT( [1234]| 5\.0| [^0-9]|[^ -]|$))/.test(ua) ||
-                    /Windows ([MC]E|9[x58]|3\.1|4\.10|NT( [1234]| 5\.0| [^0-9]|[^ ]|$))/.test(ua) ||
+                    /Windows ([MC]E|9[x58]|3\.1|4\.10|NT( [1234]\D| 5\.0| [^0-9]|[^ ]|$))/.test(ua) ||
                     /Windows_95/.test(ua)) {
                 /**
                  * Officially unsupported platforms are Windows 95, 98, ME, NT 4.x, 2000
@@ -34,12 +34,6 @@
                  */
                 return 'oldwin';
             }
-            if (ua.indexOf("MSIE 6.0") !== -1 &&
-                    ua.indexOf("Windows NT 5.1") !== -1 &&
-                    ua.indexOf("SV1") === -1) {
-                // Windows XP SP1
-                return 'oldwin';
-            }
             if (pf.indexOf("Win32") !== -1 ||
                     pf.indexOf("Win64") !== -1) {
                 return 'windows';
@@ -47,10 +41,7 @@
             if (/android/i.test(ua)) {
                 return 'android';
             }
-            if (/armv[6-7]l/.test(pf)) {
-                return 'android';
-            }
-            if (pf.indexOf("Linux") !== -1) {
+            if (/linux/i.test(pf) || /linux/i.test(ua)) {
                 return 'linux';
             }
             if (pf.indexOf("MacPPC") !== -1) {
@@ -73,14 +64,22 @@
             if (pf.indexOf("Mac") !== -1) {
                 return 'oldmac';
             }
-            if (pf === '' &&
-                    /Firefox/.test(ua) &&
-                    /Mobile|Tablet/.test(ua) &&
-                    !(/Android/.test(ua))) {
+            if (pf === '' && /Firefox/.test(ua)) {
                 return 'fxos';
             }
 
             return 'other';
+        },
+
+        getPlatformVersion: function (ua) {
+            ua = ua || navigator.userAgent;
+
+            // On OS X, Safari and Chrome have underscores instead of dots
+            var match = ua.match(/Windows\ NT\ (\d+\.\d+)/) ||
+                        ua.match(/Mac\ OS\ X\ (\d+[\._]\d+)/) ||
+                        ua.match(/Android\ (\d+\.\d+)/);
+
+            return match ? match[1].replace('_', '.') : undefined;
         },
 
         getArchType: function (ua, pf) {
@@ -88,6 +87,11 @@
             ua = ua || navigator.userAgent;
 
             var re;
+
+            // Windows RT and Windows Phone using ARMv7
+            if (/Windows/.test(ua) && /ARM/.test(ua)) {
+                return 'armv7';
+            }
 
             // IE-specific property
             if (navigator.cpuClass) {
@@ -98,6 +102,11 @@
             re = /armv\d+/i;
             if (re.test(pf) || re.test(ua)) {
                 return RegExp.lastMatch.toLowerCase();
+            }
+
+            // ARMv8 64-bit
+            if (/aarch64/.test(pf)) {
+                return 'armv8';
             }
 
             // PowerPC
@@ -115,7 +124,7 @@
             pf = (pf === '') ? '' : pf || navigator.platform;
             ua = ua || navigator.userAgent;
 
-            var re = /x64|x86_64|Win64/i;
+            var re = /x64|x86_64|Win64|WOW64|aarch64/i;
             if (re.test(pf) || re.test(ua)) {
                 return 64;
             }
@@ -126,6 +135,7 @@
         },
 
         platform: 'other',
+        platformVersion: undefined,
         archType: 'x64',
         archSize: 32
     };
@@ -135,15 +145,38 @@
         // if other than 'windows', immediately replace the platform classname on the html-element
         // to avoid lots of flickering
         var platform = window.site.platform = window.site.getPlatform();
-        if (platform !== 'windows') {
+        var version = window.site.platformVersion = window.site.getPlatformVersion();
+
+        if (platform === 'windows') {
+            // Add class to support downloading Firefox for Windows 64-bit on Windows 7 and later
+            if (version && parseFloat(version) >= 6.1) {
+                h.className += ' win7up';
+            }
+        } else {
             h.className = h.className.replace('windows', platform);
+
+            // Add class to support downloading Firefox Aurora for Android Gingerbread
+            if (platform === 'android' && version && parseFloat(version) === 2.3) {
+                h.className += ' gingerbread';
+            }
         }
 
         // Add class to reflect the microprocessor architecture info
         var archType = window.site.archType = window.site.getArchType();
         var archSize = window.site.archSize = window.site.getArchSize();
+        var isARM = archType.match(/armv(\d+)/);
+
         if (archType !== 'x86') {
             h.className = h.className.replace('x86', archType);
+
+            if (isARM) {
+                h.className += ' arm';
+
+                // Add class to support downloading Firefox for Android on ARMv7 and later
+                if (parseFloat(isARM[1]) >= 7) {
+                    h.className += ' armv7up';
+                }
+            }
         }
         if (archSize === 64) {
             h.className += ' x64';
