@@ -17,17 +17,6 @@ body {
   }
 }}
 
-@media (min-width: 768px) {
-  section {
-    width: 730px;
-  }
-}
-@media not handheld {@media (min-width: 992px) {
-  section {
-    display: inline-block;
-  }
-}}
-
 .btn {
   display: inline-block;
   padding: 6px 22px 3px 22px;
